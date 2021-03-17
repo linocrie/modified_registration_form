@@ -1,16 +1,5 @@
 <?php
 session_start();
-$mail = $_POST['email'];
-$pass = md5($_POST['password']);
-
-if (empty($pass) || empty($mail)) {
-    die('Please fill all required fields!');
-}
-
-if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-    die('Your mail is not valid!');
-}
-
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -20,6 +9,17 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
+}
+
+$mail = mysqli_real_escape_string($conn, $_POST['email']);
+$pass = md5($_POST['password']);
+
+if (empty($pass) || empty($mail)) {
+    die('Please fill all required fields!');
+}
+
+if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+    die('Your mail is not valid!');
 }
 
 $query = "SELECT * FROM users WHERE email = '$mail' AND password = '$pass'";
