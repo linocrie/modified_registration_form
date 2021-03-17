@@ -26,7 +26,7 @@ if (!isset($_SESSION['id'])) {
             <textarea class="form-control" name="text" aria-label="With textarea"></textarea>
         </div>
         <button type="submit" class="btn mt-3 btn-primary">Submit</button>
-        <a href="logout.php">Log Out</a>
+        <a href="logout.php" class="ml-5">Log Out</a>
     </form>
 
 
