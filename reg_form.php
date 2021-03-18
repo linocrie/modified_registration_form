@@ -1,9 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['id'])) {
-    header("Location:login.php");
-}
-?>
 <html>
 
 <head>
@@ -12,30 +6,37 @@ if (!isset($_SESSION['id'])) {
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
     <title>Registration Form</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 </head>
 
 <body>
-    <div class="signup-form">
-        <form action="process.php" method="post">
-            <h2>Create Your Account</h2>
-            <div class="form-group">
-                <input type="text" class="form-control" name="username" placeholder="Username" required="required">
+    <form class="form-horizontal" role="form" action="process.php" method="post">
+        <h2 class="text-center text-primary">Registration Form</h2>
+        <div class="form-group" style="margin-left: 24%;margin-top:3%">
+            <label for="username" class="col-sm-3 control-label">Username</label>
+            <div class="col-sm-3">
+                <input type="text" id="username" name="username" placeholder="username" class="form-control" autofocus>
             </div>
-            <div class="form-group">
-                <input type="email" class="form-control" name="email" placeholder="Email Address" required="required">
+        </div>
+        <div class="form-group" style="margin-left: 24%">
+            <label for="email" class="col-sm-3 control-label">Email</label>
+            <div class="col-sm-3">
+                <input type="email" id="email" name="email" placeholder="Email" class="form-control">
             </div>
-            <div class="form-group">
-                <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+        </div>
+        <div class="form-group" style="margin-left: 24%">
+            <label for="password" class="col-sm-3 control-label">Password</label>
+            <div class="col-sm-3">
+                <input type="password" id="password" name="password" placeholder="Password" class="form-control">
             </div>
-            <div class="form-group">
-                <label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+        </div>
+        <div class="form-group text-center" style="margin-left: 24%">
+            <div class=" col-sm-6">
+                <input type="submit" style="width:25%;margin-left:55%" value="Register" class="btn btn-primary">
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
-            </div>
-        </form>
-        <div class="text-center">Already have an account? <a href="login.php">Login here</a></div>
-    </div>
+        </div>
+    </form>
+    <!-- /
 </body>
 
 </html>

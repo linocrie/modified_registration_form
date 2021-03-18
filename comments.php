@@ -14,14 +14,18 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-$sql = 'SELECT `id`, `name`, `comment` from comments';
+$sql = 'SELECT comments.user_id, users.name, comments.comment FROM comments INNER JOIN users ON users.id=comments.user_id';
 $result = mysqli_query($conn, $sql);
 ?>
 
 <html>
 
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
 <body>
-    <table>
+    <table class="table">
         <tr>
             <th>ID</th>
             <th>Name</th>
@@ -30,7 +34,7 @@ $result = mysqli_query($conn, $sql);
         <?php
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
-                echo "<tr><td>" . $row["id"] . "</td><td>" . $row["name"] . "</td><td>" . $row["comment"] . "</td></tr>";
+                echo "<tr><td>" . $row["user_id"] . "</td><td>" . $row["name"] . "</td><td>" . $row["comment"] . "</td></tr>";
             }
             echo '</table>';
         } else {

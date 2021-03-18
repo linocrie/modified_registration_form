@@ -4,26 +4,33 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
-<body class="main-bg">
-    <div class="login-container text-c animated flipInX">
-        <div>
-            <h1 class="logo-badge text-whitesmoke"><span class="fa fa-user-circle"></span></h1>
-        </div>
-        <h3 class="text-whitesmoke">Log In page</h3>
-        <p class="text-whitesmoke">Log In</p>
-        <div class="container-content">
-            <form class="margin-t" action="user_login.php" method="post">
-                <div class="form-group">
-                    <input type="email" name="email" class="form-control" placeholder="Email" required="">
+<body>
+    <div id="login">
+        <h3 class="text-center text-white pt-5">Login form</h3>
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" action="user_login.php" method="post">
+                            <h3 class="text-center text-info">Login</h3>
+                            <div class="form-group">
+                                <label for="email" class="text-info">Email:</label><br>
+                                <input type="email" name="email" id="email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="text-info">Password:</label><br>
+                                <input type="password" name="password" id="password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="Submit">
+                            </div>
+                            <div id="register-link" class="text-right">
+                                <a href="reg_form.php" class="text-info">Register here</a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input type="password" name="password" class="form-control" placeholder="*****" required="">
-                </div>
-                <button type="submit" class="form-button button-l margin-b">Log In</button>
-                <p class="text-whitesmoke text-center"><small>Do not have an account?</small></p>
-                <a class="text-darkyellow" href="reg_form.php"><small>Registration</small></a>
-            </form>
-            <p class="margin-t text-whitesmoke"><small> Jerm &copy; 2021</small> </p>
+            </div>
         </div>
     </div>
 </body>

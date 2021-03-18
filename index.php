@@ -12,20 +12,12 @@ if (!isset($_SESSION['id'])) {
 </head>
 
 <body>
-    <form action="create_comment.php" method="post">
-        <div class="input-group mt-3 mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Name</span>
-            </div>
-            <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1">
+    <h4 style="margin-left:40%" class="mt-5">Write Your Comment Here</h4>
+    <form style="margin-left:35%" action="create_comment.php" method="post">
+        <div class="md-form mb-4 col-md-12 text-center pink-textarea active-pink-textarea-2">
+            <textarea id="form17" name="text" class="md-textarea w-50 h-25 form-control" rows="3"></textarea>
         </div>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text">With textarea</span>
-            </div>
-            <textarea class="form-control" name="text" aria-label="With textarea"></textarea>
-        </div>
-        <button type="submit" class="btn mt-3 btn-primary">Submit</button>
+        <input type="submit" value="Submit" class="btn ml-5 btn-primary">
         <a href="logout.php" class="ml-5">Log Out</a>
     </form>
 

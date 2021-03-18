@@ -11,7 +11,7 @@ if (!$conn) {
 }
 
 $user_name = mysqli_real_escape_string($conn, htmlspecialchars($_POST['username']));
-$email = mysqli_real_escape_string($conn, $_POST['email']);
+$email = $_POST['email'];
 $pass = md5($_POST['password']);
 
 if (empty($user_name) || empty($pass) || empty($email)) {
@@ -24,6 +24,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
 
 $query = "INSERT into `users`(`name`, `email`, `password`) VALUES ('$user_name', '$email', '$pass')";
+
 $result = mysqli_query($conn, $query);
 
 
