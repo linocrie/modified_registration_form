@@ -20,8 +20,6 @@ if (!isset($_SESSION['id'])) {
         <input type="submit" value="Submit" class="btn ml-5 btn-primary">
         <a href="logout.php" class="ml-5">Log Out</a>
     </form>
-
-
 </body>
 
 </html>

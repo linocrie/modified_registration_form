@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'config.php';
 if (!isset($_SESSION['id'])) {
     header("Location:login.php");
 }
@@ -10,16 +11,6 @@ if (empty($_POST['text'])) {
 
 $text = htmlspecialchars($_POST['text']);
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "internship";
-
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
 
 $user_id = $_SESSION['id'];
 $query = "INSERT into `comments`(`comment`, `user_id`) VALUES ('$text','$user_id')";
