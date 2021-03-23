@@ -1,6 +1,6 @@
 <?php
 $init = curl_init();
-curl_setopt($init, CURLOPT_URL, "http://api.openweathermap.org/data/2.5/forecast?q=Yerevan,usl&APPID=5099c5feb579c7a17b030de0d009282f&units=metric");
+curl_setopt($init, CURLOPT_URL, "http://api.openweathermap.org/data/2.5/weather?q=Yerevan,usl&APPID=5099c5feb579c7a17b030de0d009282f&units=metric");
 curl_setopt($init, CURLOPT_RETURNTRANSFER, true);
 // $url = "http://api.openweathermap.org/data/2.5/forecast?q=Yerevan,usl&APPID=5099c5feb579c7a17b030de0d009282f&units=metric";
 // $json = file_get_contents($url);
