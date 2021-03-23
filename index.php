@@ -1,8 +1,11 @@
 <?php
 session_start();
+include 'forecast.php';
 if (!isset($_SESSION['id'])) {
     header("Location:login.php");
 }
+
+
 ?>
 <html>
 

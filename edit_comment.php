@@ -1,14 +1,22 @@
 <?php
 session_start();
 include 'config.php';
+include 'forecast.php';
 if (!isset($_SESSION["id"])) {
+    header("location:login.php");
+}
+
+if (!isset($_GET['id'])) {
     header("location:comments.php");
 }
 $comment_id = (int)$_GET['id'];
 
-$qry = "SELECT comment FROM comments WHERE comments.id ='$comment_id' ";
+$qry = "SELECT comment FROM comments WHERE comments.id ='$comment_id' and user_id = " . $_SESSION["id"];
 $qry_result = mysqli_query($conn, $qry);
 $row = mysqli_fetch_assoc($qry_result);
+if (!$row) {
+    header("location:comments.php");
+}
 ?>
 <html>
 

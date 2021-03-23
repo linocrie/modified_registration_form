@@ -1,12 +1,13 @@
 <?php
 session_start();
 include 'config.php';
+include 'forecast.php';
 if (!isset($_SESSION['id'])) {
     header("Location:login.php");
 }
 
 
-$sql = 'SELECT comments.created_at, users.name, comments.comment, comments.user_id,comments.id FROM comments INNER JOIN users ON users.id=comments.user_id';
+$sql = 'SELECT comments.created_at, users.name, comments.comment, comments.user_id,comments.id FROM comments INNER JOIN users ON (users.id=comments.user_id) order by comments.created_at desc';
 $result = mysqli_query($conn, $sql);
 ?>
 
@@ -24,24 +25,26 @@ $result = mysqli_query($conn, $sql);
             <th>Comment</th>
         </tr>
         <?php
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<tr>";
-                echo "<td>" . $row["created_at"] . "</td>";
-                echo "<td>" . $row["name"] . "</td>";
-                echo "<td>" . $row["comment"] . "</td>";
-                if (isset($_SESSION['id']) && $_SESSION['id'] == $row['user_id']) {
-                    echo "<td><a  class='pl-3' href='edit_comment.php?id=" . $row['id'] . "'>Edit</a></td>";
-                }
-                echo "</tr>";
-            }
-            echo '</table>';
-        } else {
-            echo "0 results";
-        }
-        $conn->close();
+        if (mysqli_num_rows($result) > 0) :
+            while ($row = mysqli_fetch_assoc($result)) :
         ?>
-    </table>
+                <tr>
+                    <td> <?= $row["created_at"] ?> </td>
+                    <td> <?= $row["name"] ?></td>
+                    <td> <?= $row["comment"] ?> </td>
+
+                    <?php if (isset($_SESSION['id']) && $_SESSION['id'] == $row['user_id']) : ?>
+                        <td><a class='pl-3' href='edit_comment.php?id=<?= $row['id'] ?>'>Edit</a></td>
+                    <?php endif; ?>
+                </tr>
+            <?php endwhile; ?>
+    </table>;
+<?php else :
+            echo "0 results";
+        endif;
+        $conn->close();
+?>
+</table>
 </body>
 
 
