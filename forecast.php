@@ -5,8 +5,6 @@ curl_setopt($init, CURLOPT_RETURNTRANSFER, true);
 $result = curl_exec($init);
 curl_close($init);
 $data = json_decode($result);
-// var_dump($result);
-// exit();
 ?>
 
 <html>
@@ -14,7 +12,7 @@ $data = json_decode($result);
 <body>
 
     <div>
-        <div class="">
+        <div>
             <div>
                 <div class="d-flex">
                     <h4 class="flex-grow-1">
