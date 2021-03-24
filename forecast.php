@@ -1,6 +1,6 @@
 <?php
 require_once 'config.php';
-date_default_timezone_set("Europe/Moscow");
+date_default_timezone_set("Asia/Yerevan");
 $date = date('Y-m-d h:i:s');
 $query = "SELECT `time` FROM `weather`";
 $result = mysqli_query($conn, $query);
