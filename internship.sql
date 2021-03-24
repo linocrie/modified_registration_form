@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Мар 22 2021 г., 09:13
+-- Время создания: Мар 24 2021 г., 08:36
 -- Версия сервера: 10.4.17-MariaDB
 -- Версия PHP: 8.0.2
 
@@ -100,7 +100,8 @@ INSERT INTO `comments` (`id`, `created_at`, `user_id`, `comment`, `comment_id`) 
 (58, '2021-03-20 19:06:50', 0, '', 0),
 (59, '2021-03-20 19:39:24', 0, '', 0),
 (60, '2021-03-20 19:50:49', 0, '', 0),
-(61, '2021-03-20 20:17:05', 20, 'blm', 0);
+(61, '2021-03-20 20:17:05', 20, 'blm', 0),
+(62, '2021-03-23 19:18:15', 24, 'Karma ()', 0);
 
 -- --------------------------------------------------------
 
@@ -142,7 +143,29 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
 (20, 'liana', 'liana@gm.com', 'a92a7e2747d48b7f5f7459773c8bce44'),
 (21, 'lina', 'asd@im.ru', 'a709909b1ea5c2bee24248203b1728a5'),
 (22, 'Zakaryan', 'asd@as.ru', '8102dc11bb0313fbe5ddee2e5f12c83e'),
-(23, 'Lina', 'zl@zl.com', '7b51bf3127ebc43028004c042d7095f6');
+(23, 'Lina', 'zl@zl.com', '7b51bf3127ebc43028004c042d7095f6'),
+(24, 'Lina', 'vl@vl.com', 'c2dc7a04293113268787cca8f0924a56');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `weather`
+--
+
+CREATE TABLE `weather` (
+  `id` int(11) NOT NULL,
+  `name` varchar(15) NOT NULL,
+  `time` datetime NOT NULL,
+  `temp` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Дамп данных таблицы `weather`
+--
+
+INSERT INTO `weather` (`id`, `name`, `time`, `temp`) VALUES
+(1, 'Gyumri', '2021-03-24 12:03:49', 7),
+(2, 'Yerevan', '2021-03-24 13:11:28', 10);
 
 --
 -- Индексы сохранённых таблиц
@@ -161,6 +184,12 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `weather`
+--
+ALTER TABLE `weather`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
@@ -168,13 +197,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT для таблицы `weather`
+--
+ALTER TABLE `weather`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
