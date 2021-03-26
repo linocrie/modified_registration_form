@@ -11,73 +11,103 @@ $sql = 'SELECT comments.created_at, users.name, comments.comment, comments.user_
 $result = mysqli_query($conn, $sql);
 ?>
 
+
+
 <html>
 
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
 </head>
+
 
 <body>
 
     <div class="input-group col-sm-3 mt-3 mb-3">
         <input type="search" id="search" class="form-control rounded" placeholder="Search">
-        <input type="submit" id="submit" class="btn btn-outline-primary" value="search">
+
     </div>
 
-    <table class="table" id="table">
-        <thead>
-            <tr>
-                <th>Created At</th>
-                <th>Name</th>
-                <th>Comment</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            if (mysqli_num_rows($result) > 0) :
-                while ($row = mysqli_fetch_assoc($result)) :
-            ?>
-                    <tr>
-                        <td> <?= $row["created_at"] ?> </td>
-                        <td> <?= $row["name"] ?></td>
-                        <td> <?= $row["comment"] ?> </td>
+    <div class="search d-flex flex-wrap border" id="commentsBlock">
+        <?php
+        if (mysqli_num_rows($result) > 0) :
+            while ($row = mysqli_fetch_assoc($result)) :
+        ?>
+                <div class="comment border ml-3 mr-3 mt-4 mb-4">
+                    <blockquote class="blockquote mb-0  card-body">
+                        <p><?= $row['comment'] ?></p>
+                        <footer class="blockquote-footer">
+                            <p>
+                                <?= $row['name'] ?> <cite title="created at"><?= $row['created_at'] ?></cite>
+                            </p>
+                        </footer>
+                    </blockquote>
+                    <?php if (isset($_SESSION['id']) && $_SESSION['id'] == $row['user_id']) : ?>
+                        <small>
+                            <a class='pl-3' href='edit_comment.php?id=<?= $row['id'] ?>'>Edit</a>
+                        </small>
+                    <?php endif; ?>
+                </div>
+            <?php endwhile; ?>
 
-                        <?php if (isset($_SESSION['id']) && $_SESSION['id'] == $row['user_id']) : ?>
-                            <td><a class='pl-3' href='edit_comment.php?id=<?= $row['id'] ?>'>Edit</a></td>
-                        <?php endif; ?>
-                    </tr>
-                <?php endwhile; ?>
-        </tbody>
-    </table>
-<?php else :
-                echo "0 results";
-            endif;
-            $conn->close();
-?>
+        <?php else :
+            echo "0 results";
+        endif;
+        $conn->close();
+        ?>
+    </div>
+
+    <div class="comment commentTpl d-none">
+        <blockquote class="blockquote mb-0 card-body">
+            <p class="commentText"></p>
+            <footer class="blockquote-footer">
+                <p><span class="userName"></span> <cite title="created at" class="createdAt"></cite></p>
+            </footer>
+        </blockquote>
+        <small>
+            <a class='pl-3' href='' class="editLink">Edit</a>
+        </small>
+    </div>
 </body>
 
 </html>
 <script>
-    $('#submit').click(function() {
+    let ajax = null;
+    $(document).on('input', "#search", function() {
         let search_value = $('#search').val();
-        if (search_value == '') {
-            alert("Please fill all fields.");
-            return false;
-        }
-        $.ajax({
-            url: 'search.php',
-            type: 'post',
-            dataType: "html",
-            data: {
-                search_value: search_value
-            },
-            success: function(data) {
-                $("#table").find("tbody").html(data);
-
+        $('#commentsBlock').html('');
+        if (search_value.length >= 1) {
+            if (ajax !== null) {
+                ajax.abort();
             }
-        })
+            ajax = $.ajax({
+                url: 'search.php',
+                type: 'GET',
+                dataType: "json",
+                data: {
+                    search_value: search_value
+                },
+                success(response) {
+                    for (let i = 0; i < response.length; i++) {
+                        setComment(response[i]);
+                    }
+                }
+            })
+        } else {
+            return 'No results';
+        }
     })
+
+    function setComment(data) {
+        console.log(data);
+
+        let tpl = $('.commentTpl').clone(true);
+        $(tpl).find('.commentText').text(data.comment);
+        $(tpl).find('.userName').text(data.name);
+        $(tpl).find('.createdAt').text(data.created_at);
+        $(tpl).find('.editLink').attr('href', 'edit_comment.php?id=' + data.id);
+        $(tpl).removeClass('commentTpl');
+        $(tpl).removeClass('d-none');
+        $('#commentsBlock').append(tpl);
+    }
 </script>
