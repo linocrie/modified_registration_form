@@ -1,7 +1,6 @@
 <?php
 session_start();
 include 'config.php';
-include 'forecast.php';
 if (!isset($_SESSION['id'])) {
     header("Location:login.php");
 }
@@ -23,38 +22,51 @@ $result = mysqli_query($conn, $sql);
 
 <body>
 
-    <div class="input-group col-sm-3 mt-3 mb-3">
-        <input type="search" id="search" class="form-control rounded" placeholder="Search">
-
-    </div>
-
-    <div class="search d-flex flex-wrap border" id="commentsBlock">
-        <?php
-        if (mysqli_num_rows($result) > 0) :
-            while ($row = mysqli_fetch_assoc($result)) :
-        ?>
-                <div class="comment border ml-3 mr-3 mt-4 mb-4">
-                    <blockquote class="blockquote mb-0  card-body">
-                        <p><?= $row['comment'] ?></p>
-                        <footer class="blockquote-footer">
-                            <p>
-                                <?= $row['name'] ?> <cite title="created at"><?= $row['created_at'] ?></cite>
-                            </p>
-                        </footer>
-                    </blockquote>
-                    <?php if (isset($_SESSION['id']) && $_SESSION['id'] == $row['user_id']) : ?>
-                        <small>
-                            <a class='pl-3' href='edit_comment.php?id=<?= $row['id'] ?>'>Edit</a>
-                        </small>
-                    <?php endif; ?>
+    <div class="container pt-4">
+        <div class="row align-items-center">
+            <div class="col-md-3">
+                <div class="forcaste ml-2">
+                    <?php
+                    include 'forecast.php';
+                    ?>
                 </div>
-            <?php endwhile; ?>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group">
+                    <input type="search" id="search" class="form-control rounded" placeholder="Search">
+                </div>
+            </div>
+        </div>
 
-        <?php else :
-            echo "0 results";
-        endif;
-        $conn->close();
-        ?>
+        <div class="search d-flex flex-wrap pt-4" id="commentsBlock">
+            <?php
+            if (mysqli_num_rows($result) > 0) :
+                while ($row = mysqli_fetch_assoc($result)) :
+            ?>
+                    <div class="comment card ml-2 mr-2 mb-4">
+                        <blockquote class="blockquote mb-0 card-body">
+                            <p class="mb-0"><?= $row['comment'] ?></p>
+                            <footer class="blockquote-footer">
+                                <p class="mb-0">
+                                    <?= $row['name'] ?> <cite title="created at"><?= $row['created_at'] ?></cite>
+                                </p>
+                            </footer>
+                        </blockquote>
+                        <?php if (isset($_SESSION['id']) && $_SESSION['id'] == $row['user_id']) : ?>
+                            <div class="text-right card-body">
+                                <a class='btn btn-success' href='edit_comment.php?id=<?= $row['id'] ?>'>Edit</a>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                <?php endwhile; ?>
+
+            <?php else :
+                echo "0 results";
+            endif;
+            $conn->close();
+            ?>
+        </div>
+
     </div>
 
     <div class="comment commentTpl d-none">
@@ -91,10 +103,11 @@ $result = mysqli_query($conn, $sql);
                     for (let i = 0; i < response.length; i++) {
                         setComment(response[i]);
                     }
+                    ajax = null;
                 }
             })
         } else {
-            return 'No results';
+            return "No results";
         }
     })
 

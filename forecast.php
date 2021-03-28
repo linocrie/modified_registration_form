@@ -62,7 +62,7 @@ $weather = get_weather($conn);
                     </h4>
                 </div>
                 <div class="d-flex flex-column temp">
-                    <h1 class="mb-0 font-weight-bold" id="heading"> <?= $weather['temp'] ?>&deg;C </h1>
+                    <h2 class="mb-0 font-weight-bold" id="heading"> <?= $weather['temp'] ?>&deg;C </h2>
                 </div>
             </div>
         </div>

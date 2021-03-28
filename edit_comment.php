@@ -1,7 +1,6 @@
 <?php
 session_start();
 include 'config.php';
-include 'forecast.php';
 if (!isset($_SESSION["id"])) {
     header("location:login.php");
 }
@@ -25,12 +24,14 @@ if (!$row) {
 </head>
 
 <body>
-    <h4 style="margin-left:40%" class="mt-5">Write Your Comment Here</h4>
-    <form style="margin-left:35%" action="edited.php" method="post">
-        <input type="hidden" name="id" value="<?php echo $comment_id ?>">
-        <input name="edit" class="w-50 h-25 form-control" value="<?php echo $row['comment']; ?>">
-        <input type="submit" value="Edit" class="btn ml-5 btn-primary">
-    </form>
+    <div class="container">
+        <h4 style="margin-left:40%" class="mt-5">Write Your Comment Here</h4>
+        <form style="margin-left:35%" action="edited.php" method="post">
+            <input type="hidden" name="id" value="<?php echo $comment_id ?>">
+            <input name="edit" class="w-50 h-25 form-control" value="<?php echo $row['comment']; ?>">
+            <input type="submit" value="Edit" class="btn mt-3 ml-5 btn-primary">
+        </form>
+    </div>
 </body>
 
 </html>

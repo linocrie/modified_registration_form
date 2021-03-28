@@ -2,7 +2,7 @@
 include 'config.php';
 if (isset($_GET['search_value'])) {
     $search_value = $_GET['search_value'];
-    $query = "SELECT `created_at`,`comment`,`name` FROM `comments` INNER JOIN users ON comments.user_id = users.id WHERE `comment` LIKE '%$search_value%'";
+    $query = "SELECT `created_at`,`comment`,`name` FROM `comments` INNER JOIN users ON (comments.user_id = users.id) WHERE `comment` LIKE '%$search_value%'";
     $result = mysqli_query($conn, $query);
     $arr = [];
     if (mysqli_num_rows($result) > 0) {
