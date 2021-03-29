@@ -1,6 +1,7 @@
 <?php
 session_start();
 include 'config.php';
+include 'forecast.php';
 if (!isset($_SESSION["id"])) {
     header("location:login.php");
 }
