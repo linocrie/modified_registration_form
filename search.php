@@ -1,5 +1,6 @@
 <?php
 include 'config.php';
+sleep(2);
 if (isset($_GET['search_value'])) {
     $search_value = $_GET['search_value'];
     $query = "SELECT `created_at`,`comment`,`name` FROM `comments` INNER JOIN users ON (comments.user_id = users.id) WHERE `comment` LIKE '%$search_value%'";
@@ -12,10 +13,8 @@ if (isset($_GET['search_value'])) {
             $created_at = $row['created_at'];
             $arr[] = array("name" => $name, "comment" => $comment, "created_at" => $created_at);
         }
-        sleep(2);
         echo json_encode($arr);
     } else {
-        sleep(2);
         echo "no results";
     }
 }
